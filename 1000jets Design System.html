@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1000jets — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#0B2540; --navy-700:#154467; --navy-500:#2C6EA8; --navy-100:#DCEAF6;
+  --brass-700:#9A6B14; --brass-500:#C08A28; --brass-300:#E8C77A; --amber:#FFB238;
+  --teal-600:#0B8A9B; --teal-400:#1FC2CE; --teal-100:#D3F4F4;
+  --ink:#20242B; --ink-soft:#5B6270; --line:#E4E7EC; --paper:#FBFAF8; --card:#FFFFFF;
+  --success:#1D9A6C; --warn:#C77B12; --error:#D64545;
+  --r-sm:4px; --r-md:8px; --r-lg:14px; --r-full:999px;
+  --sh-1:0 1px 3px rgba(11,37,64,.10); --sh-2:0 6px 20px rgba(11,37,64,.12); --sh-3:0 16px 40px rgba(11,37,64,.18);
+  --ease:cubic-bezier(.4,0,.2,1);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B0E13; --card:#151A22; --ink:#EDEFF3; --ink-soft:#9AA3B2; --line:#242B36;
+    --navy-100:#12283C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B0E13; --card:#151A22; --ink:#EDEFF3; --ink-soft:#9AA3B2; --line:#242B36; --navy-100:#12283C;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0 0 6px;color:var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-500);font-weight:600;margin:0 0 10px}
+.lede{color:var(--ink-soft);max-width:640px;font-size:16px}
+section{padding:56px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.top{background:linear-gradient(180deg,var(--navy-900),#08192B);color:#fff;padding:64px 0 48px}
+.top .eyebrow{color:var(--brass-300)}
+.top h1{color:#fff;font-size:40px;line-height:1.15}
+.top .lede{color:#C9D4E0}
+.theme-toggle{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:16px;z-index:10;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:var(--r-full);padding:6px 14px;font:600 12px Inter;cursor:pointer;backdrop-filter:blur(6px)}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.top h1{font-size:30px}}
+
+.swatch{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.swatch .fill{height:64px}
+.swatch .meta{padding:10px 12px;font-size:12px}
+.swatch .meta b{display:block;font-size:13px;margin-bottom:2px}
+code{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+
+.type-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.type-row .label{width:130px;flex:none;font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+.type-row .sample{font-family:Fraunces,serif}
+.type-row.body .sample{font-family:Inter,sans-serif}
+.type-row.mono .sample{font-family:'IBM Plex Mono',monospace}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 22px;border-radius:var(--r-md);font:600 14px Inter;cursor:pointer;transition:all .15s var(--ease);border:1.5px solid transparent}
+.btn-primary{background:var(--navy-900);color:#fff}
+.btn-primary:hover{background:var(--navy-700)}
+.btn-accent{background:var(--brass-500);color:#1a1204}
+.btn-accent:hover{background:var(--brass-700);color:#fff}
+.btn-outline{background:transparent;border-color:var(--navy-500);color:var(--navy-700)}
+.btn-ghost{background:transparent;color:var(--ink-soft)}
+.btn-sm{height:32px;padding:0 14px;font-size:12px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);overflow:hidden;transition:box-shadow .2s var(--ease)}
+.card:hover{box-shadow:var(--sh-2)}
+.jet-card .art{height:120px;background:linear-gradient(135deg,var(--navy-100),var(--teal-100));display:flex;align-items:center;justify-content:center}
+.jet-card .body{padding:18px}
+.jet-card h3{font-size:17px;margin:0 0 2px}
+.jet-card .specs{display:flex;gap:14px;font-size:12px;color:var(--ink-soft);margin:8px 0}
+.badge{display:inline-flex;align-items:center;gap:5px;font:600 11px Inter;padding:4px 9px;border-radius:var(--r-full);letter-spacing:.02em}
+.badge-amber{background:#FFF3DF;color:var(--warn)}
+.badge-teal{background:var(--teal-100);color:var(--teal-600)}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.price{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;color:var(--navy-900)}
+:root[data-theme="dark"] .price,body:not([data-theme]) .price{color:var(--brass-300)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .price{color:var(--brass-300)}}
+
+.stat-card{padding:20px}
+.stat-card .num{font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;color:var(--navy-900)}
+:root[data-theme="dark"] .stat-card .num{color:#fff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .stat-card .num{color:#fff}}
+.stat-card .lbl{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+
+.ledger{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;font-family:'IBM Plex Mono',monospace;font-size:13px}
+.ledger .ln{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line)}
+.ledger .ln.total{border-bottom:none;border-top:1.5px solid var(--ink);margin-top:4px;padding-top:12px;font-weight:600;font-size:15px}
+
+.tok-block{background:var(--navy-900);color:#D7E4F2;border-radius:var(--r-md);padding:18px 20px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;overflow-x:auto}
+.tok-block .k{color:var(--brass-300)}
+footer{padding:32px 24px 48px;text-align:center;color:var(--ink-soft);font-size:12px}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="const r=document.documentElement,c=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',c);this.textContent=c==='dark'?'☀ Light':'● Dark'">● Dark</button>
+
+<div class="top"><div class="wrap">
+  <p class="eyebrow">1000jets · Design System v1</p>
+  <h1>Private aviation, made legible.</h1>
+  <p class="lede">A design language for a transparent, technology-first jet marketplace — trustworthy enough for a CFO, fast enough for a founder booking from their phone. Built on restraint: one confident serif moment, disciplined data typography, and a navy-and-brass palette that reads premium without shouting.</p>
+</div></div>
+
+<section><div class="wrap">
+  <p class="eyebrow">Color</p>
+  <h2>Navy for trust, brass for premium, teal for transparency</h2>
+  <p class="lede" style="margin-bottom:24px">Gold was replaced with a warmer, less caution-yellow <b>brass</b> — it reads luxury in print and on screen without competing with semantic amber. Navy deepens toward an almost-black for dark mode instead of flat charcoal, so night mode still feels like the brand.</p>
+  <div class="grid g4">
+    <div class="swatch"><div class="fill" style="background:#0B2540"></div><div class="meta"><b>Navy 900</b><code>#0B2540</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#154467"></div><div class="meta"><b>Navy 700</b><code>#154467</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#2C6EA8"></div><div class="meta"><b>Navy 500</b><code>#2C6EA8</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#DCEAF6"></div><div class="meta"><b>Navy 100</b><code>#DCEAF6</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#9A6B14"></div><div class="meta"><b>Brass 700</b><code>#9A6B14</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#C08A28"></div><div class="meta"><b>Brass 500</b><code>#C08A28</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#E8C77A"></div><div class="meta"><b>Brass 300</b><code>#E8C77A</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#FFB238"></div><div class="meta"><b>Signal Amber</b><code>#FFB238</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#0B8A9B"></div><div class="meta"><b>Teal 600</b><code>#0B8A9B</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#D3F4F4"></div><div class="meta"><b>Teal 100</b><code>#D3F4F4</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#1D9A6C"></div><div class="meta"><b>Success</b><code>#1D9A6C</code></div></div>
+    <div class="swatch"><div class="fill" style="background:#D64545"></div><div class="meta"><b>Error</b><code>#D64545</code></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Typography</p>
+  <h2>Fraunces for arrival, Inter for the flight, Plex Mono for the numbers</h2>
+  <p class="lede" style="margin-bottom:20px">Fraunces replaces the more generic Playfair Display — same editorial confidence, but its soft optical-size curves feel less "wedding invitation," more considered. Reserve it for moments; the product itself runs on Inter.</p>
+  <div class="type-row"><span class="label">Display / 44</span><span class="sample" style="font-size:44px">Fly on your terms.</span></div>
+  <div class="type-row"><span class="label">H2 / 28</span><span class="sample" style="font-size:28px;font-weight:600">Empty legs, transparently priced</span></div>
+  <div class="type-row body"><span class="label">Body / 16</span><span class="sample" style="font-size:16px">Every quote shows the base charter cost, fuel surcharge, and our fee — separately, before you book.</span></div>
+  <div class="type-row body"><span class="label">Label / 12</span><span class="sample" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--ink-soft)">Departure · Aircraft · Seats</span></div>
+  <div class="type-row mono"><span class="label">Data / 20</span><span class="sample" style="font-size:20px;font-weight:600">$18,450.00</span></div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Buttons</p>
+  <div class="row">
+    <button class="btn btn-primary">Search flights</button>
+    <button class="btn btn-accent">Book empty leg</button>
+    <button class="btn btn-outline">View fleet</button>
+    <button class="btn btn-ghost">Learn more</button>
+    <button class="btn btn-primary btn-sm">Confirm</button>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Components</p>
+  <h2>Cards</h2>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card jet-card">
+      <div class="art">✈</div>
+      <div class="body">
+        <span class="badge badge-amber">Empty leg</span>
+        <h3>Citation Latitude</h3>
+        <div class="specs"><span>8 seats</span><span>2,850 nmi</span><span>451 kt</span></div>
+        <div class="price-row"><span class="price">$14,200</span><span class="badge badge-teal">Verified operator</span></div>
+      </div>
+    </div>
+    <div class="card stat-card">
+      <div class="num">92%</div>
+      <div class="lbl">On-time departures, trailing 12mo</div>
+    </div>
+    <div class="card stat-card">
+      <div class="num">3.4 hr</div>
+      <div class="lbl">Avg. quote-to-booking time</div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Transparency pattern</p>
+  <h2>The price ledger</h2>
+  <p class="lede" style="margin-bottom:18px">The single most brand-defining component: every fee itemized in monospace, no bundled "service charges." This is what separates 1000jets from a black-box broker.</p>
+  <div class="ledger" style="max-width:420px">
+    <div class="ln"><span>Charter base rate</span><span>$15,600.00</span></div>
+    <div class="ln"><span>Fuel surcharge</span><span>$1,150.00</span></div>
+    <div class="ln"><span>Airport & handling fees</span><span>$680.00</span></div>
+    <div class="ln"><span>1000jets platform fee (7%)</span><span>$1,220.00</span></div>
+    <div class="ln total"><span>Total</span><span>$18,650.00</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Design tokens</p>
+  <h2>CSS variables, ready to ship</h2>
+  <div class="tok-block" style="margin-top:16px">
+:root {<br>
+&nbsp;&nbsp;<span class="k">--navy-900</span>: #0B2540;<br>
+&nbsp;&nbsp;<span class="k">--navy-500</span>: #2C6EA8;<br>
+&nbsp;&nbsp;<span class="k">--brass-500</span>: #C08A28;<br>
+&nbsp;&nbsp;<span class="k">--teal-600</span>: #0B8A9B;<br>
+&nbsp;&nbsp;<span class="k">--font-display</span>: 'Fraunces', Georgia, serif;<br>
+&nbsp;&nbsp;<span class="k">--font-body</span>: 'Inter', system-ui, sans-serif;<br>
+&nbsp;&nbsp;<span class="k">--font-mono</span>: 'IBM Plex Mono', monospace;<br>
+&nbsp;&nbsp;<span class="k">--radius-md</span>: 8px;<br>
+&nbsp;&nbsp;<span class="k">--shadow-card</span>: 0 6px 20px rgba(11,37,64,.12);<br>
+}
+  </div>
+</div></section>
+
+<footer>1000jets Design System · v1 · light/dark supported</footer>
+</body>
+</html>

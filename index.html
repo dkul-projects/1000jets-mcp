@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1000jets — Private Aviation. Transparent. Accessible.</title>
+<meta name="description" content="Transparent all-in pricing, same-day confirmation within 4 hours, and 150+ verified operators. Private aviation without the black box.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1000jets — Design tokens (from 1000jets Design System v1)
+   ============================================================ */
+:root{
+  --navy-900:#0B2540; --navy-700:#154467; --navy-500:#2C6EA8; --navy-100:#DCEAF6;
+  --brass-700:#9A6B14; --brass-500:#C08A28; --brass-300:#E8C77A; --amber:#FFB238;
+  --teal-600:#0B8A9B; --teal-400:#1FC2CE; --teal-100:#D3F4F4;
+  --ink:#20242B; --ink-soft:#5B6270; --line:#E4E7EC; --paper:#FBFAF8; --card:#FFFFFF;
+  --success:#1D9A6C; --warn:#C77B12; --error:#D64545;
+  --r-sm:4px; --r-md:8px; --r-lg:14px; --r-full:999px;
+  --sh-1:0 1px 3px rgba(11,37,64,.10); --sh-2:0 6px 20px rgba(11,37,64,.12); --sh-3:0 16px 40px rgba(11,37,64,.18);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --header-h:66px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B0E13; --card:#151A22; --ink:#EDEFF3; --ink-soft:#9AA3B2; --line:#242B36;
+    --navy-100:#12283C; --teal-100:#0C2E33;
+    --sh-1:0 1px 3px rgba(0,0,0,.4); --sh-2:0 6px 20px rgba(0,0,0,.45); --sh-3:0 16px 40px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B0E13; --card:#151A22; --ink:#EDEFF3; --ink-soft:#9AA3B2; --line:#242B36;
+  --navy-100:#12283C; --teal-100:#0C2E33;
+  --sh-1:0 1px 3px rgba(0,0,0,.4); --sh-2:0 6px 20px rgba(0,0,0,.45); --sh-3:0 16px 40px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px)}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);line-height:1.55;font-size:16px;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;margin:0 0 10px;letter-spacing:-.01em;line-height:1.18}
+h1{font-size:clamp(34px,5.2vw,54px)}
+h2{font-size:clamp(26px,3.4vw,38px)}
+h3{font-size:19px}
+p{margin:0 0 14px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:860px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-500);font-weight:600;margin:0 0 12px;font-family:var(--font-body)}
+.lede{color:var(--ink-soft);max-width:660px;font-size:17px}
+.mono{font-family:var(--font-mono)}
+.center{text-align:center}
+.center .lede{margin-left:auto;margin-right:auto}
+section{padding:72px 0}
+.sec-line{border-top:1px solid var(--line)}
+@media(max-width:760px){section{padding:52px 0}.wrap,.wrap-narrow{padding:0 16px}}
+
+/* ---------- Grid ---------- */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@media(max-width:960px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
+@media(max-width:700px){.g2{grid-template-columns:1fr}.g4{grid-template-columns:1fr}}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:48px;padding:0 24px;border-radius:var(--r-md);
+  font:600 14.5px var(--font-body);cursor:pointer;white-space:nowrap;
+  transition:background .15s var(--ease),color .15s var(--ease),box-shadow .15s var(--ease),transform .15s var(--ease),border-color .15s var(--ease);
+  border:1.5px solid transparent;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--navy-900);color:#fff;box-shadow:var(--sh-1)}
+.btn-primary:hover{background:var(--navy-700);box-shadow:var(--sh-2)}
+.btn-accent{background:var(--brass-500);color:#1a1204;box-shadow:var(--sh-1)}
+.btn-accent:hover{background:var(--brass-700);color:#fff;box-shadow:var(--sh-2)}
+.btn-outline{background:transparent;border-color:var(--navy-500);color:var(--navy-500)}
+.btn-outline:hover{background:var(--navy-500);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink-soft)}
+.btn-ghost:hover{color:var(--ink);background:var(--line)}
+.btn-onnavy{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.34);color:#fff}
+.btn-onnavy:hover{background:rgba(255,255,255,.2)}
+.btn-sm{height:36px;padding:0 15px;font-size:12.5px}
+.btn-lg{height:54px;padding:0 30px;font-size:15.5px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--brass-500);outline-offset:2px;border-radius:var(--r-sm)}
+
+/* ---------- Badges ---------- */
+.badge{display:inline-flex;align-items:center;gap:5px;font:600 11px var(--font-body);padding:4px 10px;border-radius:var(--r-full);letter-spacing:.02em;white-space:nowrap}
+.badge-amber{background:#FFF3DF;color:var(--warn)}
+.badge-teal{background:var(--teal-100);color:var(--teal-600)}
+.badge-brass{background:#F7EEDC;color:var(--brass-700)}
+.badge-success{background:#E2F5EC;color:var(--success)}
+.badge-navy{background:var(--navy-100);color:var(--navy-700)}
+:root[data-theme="dark"] .badge-amber{background:#3A2A0E;color:var(--amber)}
+:root[data-theme="dark"] .badge-brass{background:#332711;color:var(--brass-300)}
+:root[data-theme="dark"] .badge-success{background:#0E2E22;color:#4FD3A0}
+:root[data-theme="dark"] .badge-navy{background:var(--navy-100);color:#9EC5E8}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .badge-amber{background:#3A2A0E;color:var(--amber)}
+  :root:not([data-theme="light"]) .badge-brass{background:#332711;color:var(--brass-300)}
+  :root:not([data-theme="light"]) .badge-success{background:#0E2E22;color:#4FD3A0}
+  :root:not([data-theme="light"]) .badge-navy{background:var(--navy-100);color:#9EC5E8}
+}
+
+/* ---------- Cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);transition:box-shadow .2s var(--ease),transform .2s var(--ease),border-color .2s var(--ease)}
+.card-pad{padding:24px}
+.card-hover:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+
+/* ---------- Header ---------- */
+header.site{
+  position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.navbar{display:flex;align-items:center;gap:26px;height:var(--header-h)}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:-.02em;cursor:pointer;flex:none}
+.logo .glyph{width:28px;height:28px;border-radius:7px;background:var(--navy-900);color:var(--brass-300);display:grid;place-items:center;font-size:14px;font-family:var(--font-body)}
+:root[data-theme="dark"] .logo .glyph{background:var(--brass-500);color:#0B1220}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo .glyph{background:var(--brass-500);color:#0B1220}}
+.navlinks{display:flex;gap:4px;margin-left:8px}
+.navlinks a{
+  padding:8px 13px;border-radius:var(--r-md);font-size:14px;font-weight:500;color:var(--ink-soft);
+  transition:color .15s var(--ease),background .15s var(--ease);cursor:pointer;position:relative;
+}
+.navlinks a:hover{color:var(--ink);background:var(--line)}
+.navlinks a.active{color:var(--ink);font-weight:600}
+.navlinks a.active::after{content:"";position:absolute;left:13px;right:13px;bottom:2px;height:2px;background:var(--brass-500);border-radius:2px}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{
+  width:38px;height:38px;border-radius:var(--r-md);border:1px solid var(--line);background:transparent;
+  color:var(--ink-soft);cursor:pointer;display:grid;place-items:center;font-size:15px;
+  transition:background .15s var(--ease),color .15s var(--ease)
+}
+.icon-btn:hover{background:var(--line);color:var(--ink)}
+.burger{display:none}
+@media(max-width:1000px){
+  .navlinks{display:none}
+  .burger{display:grid}
+  .nav-right .btn-signin{display:none}
+}
+/* Mobile drawer */
+.drawer{
+  position:fixed;inset:var(--header-h) 0 0 0;z-index:55;background:var(--paper);
+  padding:22px 20px 40px;transform:translateX(100%);transition:transform .28s var(--ease);
+  overflow-y:auto;border-top:1px solid var(--line);
+}
+.drawer.open{transform:translateX(0)}
+.drawer a{display:block;padding:15px 4px;font-size:17px;font-weight:500;border-bottom:1px solid var(--line);cursor:pointer}
+.drawer .btn{margin-top:22px}
+
+/* ---------- Views ---------- */
+.view{display:none;animation:fade .3s var(--ease)}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:
+    radial-gradient(1100px 420px at 78% -8%, rgba(31,194,206,.16), transparent 62%),
+    radial-gradient(760px 380px at 8% 108%, rgba(192,138,40,.20), transparent 60%),
+    linear-gradient(170deg,var(--navy-900) 0%,#08192B 100%);
+  color:#fff;padding:78px 0 90px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:58px 58px;mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent 75%);
+}
+.hero .wrap{position:relative;z-index:1}
+.hero .eyebrow{color:var(--brass-300)}
+.hero h1{color:#fff;max-width:14ch}
+.hero h1 .accent{
+  background:linear-gradient(92deg,var(--brass-300),var(--teal-400));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{color:#C9D4E0;font-size:18px;max-width:52ch;margin-bottom:26px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+@media(max-width:1000px){.hero-grid{grid-template-columns:1fr;gap:38px}.hero{padding:56px 0 64px}}
+.guarantee-pill{
+  display:inline-flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.08);border:1px solid rgba(232,199,122,.38);color:#EDE3CC;
+  font-size:13px;font-weight:500;margin-bottom:22px;
+}
+.guarantee-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2s var(--ease) infinite}
+.guarantee-pill .tag{background:var(--brass-500);color:#1a1204;font:600 11px var(--font-body);padding:4px 10px;border-radius:var(--r-full)}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,178,56,.5)}50%{opacity:.75;box-shadow:0 0 0 7px rgba(255,178,56,0)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+
+.hero-proof{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap}
+.hero-proof .item .n{font-family:var(--font-mono);font-size:23px;font-weight:600;color:#fff}
+.hero-proof .item .l{font-size:11.5px;color:#93A6BA;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* ---------- Search panel ---------- */
+.search-panel{background:var(--card);color:var(--ink);border-radius:var(--r-lg);box-shadow:var(--sh-3);padding:22px;border:1px solid var(--line)}
+.search-panel h3{font-size:17px;margin-bottom:2px}
+.search-panel .hint{font-size:12.5px;color:var(--ink-soft);margin-bottom:18px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.field input,.field select{
+  width:100%;height:46px;padding:0 13px;border:1.5px solid var(--line);border-radius:var(--r-md);
+  background:var(--paper);color:var(--ink);font:500 15px var(--font-body);
+  transition:border-color .15s var(--ease),box-shadow .15s var(--ease);
+}
+.field input::placeholder{color:var(--ink-soft);font-weight:400}
+.field input:focus,.field select:focus{outline:none;border-color:var(--brass-500);box-shadow:0 0 0 3px rgba(192,138,40,.16)}
+.field-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stepper{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:var(--r-md);height:46px;background:var(--paper);overflow:hidden}
+.stepper button{width:44px;height:100%;border:none;background:transparent;color:var(--ink-soft);font-size:19px;cursor:pointer;transition:background .15s var(--ease)}
+.stepper button:hover{background:var(--line);color:var(--ink)}
+.stepper .val{flex:1;text-align:center;font-family:var(--font-mono);font-weight:600;font-size:15px}
+
+/* ---------- Value tiles ---------- */
+.tile{padding:28px 24px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-1);transition:box-shadow .2s var(--ease),transform .2s var(--ease)}
+.tile:hover{box-shadow:var(--sh-2);transform:translateY(-3px)}
+.tile .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:21px;margin-bottom:16px}
+.ico-teal{background:var(--teal-100);color:var(--teal-600)}
+.ico-brass{background:#F7EEDC;color:var(--brass-700)}
+.ico-navy{background:var(--navy-100);color:var(--navy-700)}
+:root[data-theme="dark"] .ico-brass{background:#332711;color:var(--brass-300)}
+:root[data-theme="dark"] .ico-navy{background:var(--navy-100);color:#9EC5E8}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .ico-brass{background:#332711;color:var(--brass-300)}
+  :root:not([data-theme="light"]) .ico-navy{background:var(--navy-100);color:#9EC5E8}
+}
+.tile h3{margin-bottom:6px}
+.tile p{color:var(--ink-soft);font-size:14.5px;margin-bottom:14px}
+.tile .link{font-size:13.5px;font-weight:600;color:var(--navy-500);cursor:pointer;display:inline-flex;gap:5px;align-items:center}
+.tile .link:hover{gap:9px}
+.tile .link span{transition:transform .15s var(--ease)}
+
+/* ---------- Ledger (brand-defining) ---------- */
+.ledger{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;font-family:var(--font-mono);font-size:13.5px;box-shadow:var(--sh-1)}
+.ledger .ln{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.ledger .ln span:first-child{color:var(--ink-soft)}
+.ledger .ln.total{border-bottom:none;border-top:1.5px solid var(--ink);margin-top:6px;padding-top:13px;font-weight:600;font-size:16px}
+.ledger .ln.total span:first-child{color:var(--ink)}
+.ledger .ln.credit span:last-child{color:var(--success)}
+.ledger-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-family:var(--font-body)}
+.ledger-head .t{font-weight:600;font-size:14px}
+.ledger-note{font-family:var(--font-body);font-size:12px;color:var(--ink-soft);margin-top:12px;display:flex;gap:7px;align-items:flex-start}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:24px;flex-wrap:wrap}
+.tabs button{
+  background:transparent;border:none;padding:11px 16px;font:600 14px var(--font-body);color:var(--ink-soft);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s var(--ease),border-color .15s var(--ease)
+}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--brass-500)}
+.tabpanel{display:none}
+.tabpanel.on{display:block;animation:fade .2s var(--ease)}
+
+/* ---------- Proof strip ---------- */
+.proof-strip{background:var(--navy-900);color:#fff;border-radius:var(--r-lg);padding:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.proof-strip .n{font-family:var(--font-mono);font-size:30px;font-weight:600;color:var(--brass-300)}
+.proof-strip .l{font-size:11.5px;color:#9FB2C6;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+@media(max-width:800px){.proof-strip{grid-template-columns:repeat(2,1fr);padding:26px 22px}}
+
+.certs{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+.cert{
+  border:1px solid var(--line);border-radius:var(--r-md);padding:10px 18px;font-size:12.5px;font-weight:600;
+  color:var(--ink-soft);letter-spacing:.05em;background:var(--card)
+}
+
+/* ---------- Testimonials ---------- */
+.quote{padding:26px 24px}
+.quote .stars{color:var(--brass-500);font-size:13px;letter-spacing:2px;margin-bottom:12px}
+.quote blockquote{margin:0 0 18px;font-size:15.5px;line-height:1.62}
+.quote .who{display:flex;gap:12px;align-items:center}
+.quote .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--navy-500),var(--teal-600));display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;flex:none}
+.quote .who .nm{font-weight:600;font-size:14px}
+.quote .who .rl{font-size:12.5px;color:var(--ink-soft)}
+
+/* ---------- Audience split CTA ---------- */
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.aud{grid-template-columns:1fr}}
+.aud .c{padding:26px 24px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.aud .c:hover{border-color:var(--brass-500);box-shadow:var(--sh-2)}
+.aud .c h3{font-size:18px;margin-bottom:6px}
+.aud .c p{color:var(--ink-soft);font-size:14.5px;flex:1}
+.aud .c .kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--teal-600);margin-bottom:10px}
+
+/* ---------- Newsletter ---------- */
+.news{background:var(--navy-100);border-radius:var(--r-lg);padding:38px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;border:1px solid var(--line)}
+@media(max-width:820px){.news{grid-template-columns:1fr;padding:28px 22px}}
+.news h3{font-size:24px;margin-bottom:4px}
+.news p{color:var(--ink-soft);font-size:14.5px;margin:0}
+.news form{display:flex;gap:10px}
+.news input{flex:1;height:48px;padding:0 14px;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--card);color:var(--ink);font:500 15px var(--font-body)}
+.news input:focus{outline:none;border-color:var(--brass-500);box-shadow:0 0 0 3px rgba(192,138,40,.16)}
+@media(max-width:480px){.news form{flex-direction:column}}
+
+/* ---------- Search results ---------- */
+.results-head{background:var(--card);border-bottom:1px solid var(--line);padding:18px 0;position:sticky;top:var(--header-h);z-index:40}
+.route-chip{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.route-chip .leg{font-family:var(--font-display);font-size:22px;font-weight:600}
+.route-chip .meta{font-size:13px;color:var(--ink-soft)}
+.jet-row{
+  display:grid;grid-template-columns:150px 1fr 200px;gap:22px;padding:20px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);
+  transition:box-shadow .2s var(--ease),transform .2s var(--ease),border-color .2s var(--ease);cursor:pointer;
+}
+.jet-row:hover{box-shadow:var(--sh-2);transform:translateY(-2px);border-color:var(--navy-500)}
+.jet-art{
+  height:96px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--navy-100),var(--teal-100));
+  display:grid;place-items:center;font-size:32px;color:var(--navy-700);position:relative;overflow:hidden
+}
+:root[data-theme="dark"] .jet-art{color:#9EC5E8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .jet-art{color:#9EC5E8}}
+.jet-info h3{margin-bottom:4px;font-size:20px}
+.jet-info .cls{font-size:12.5px;color:var(--ink-soft);margin-bottom:10px}
+.specs{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft)}
+.specs b{font-family:var(--font-mono);color:var(--ink);font-weight:600}
+.jet-price{text-align:right}
+.jet-price .p{font-family:var(--font-mono);font-size:26px;font-weight:600;color:var(--navy-900)}
+:root[data-theme="dark"] .jet-price .p{color:var(--brass-300)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .jet-price .p{color:var(--brass-300)}}
+.jet-price .sub{font-size:11.5px;color:var(--ink-soft);margin-bottom:12px}
+.jet-price .was{font-family:var(--font-mono);font-size:13px;color:var(--ink-soft);text-decoration:line-through;margin-right:7px}
+@media(max-width:860px){
+  .jet-row{grid-template-columns:1fr;gap:16px}
+  .jet-art{height:72px}
+  .jet-price{text-align:left;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .jet-price .sub{margin-bottom:0}
+  .jet-price .btn{margin-left:auto}
+}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{
+  padding:8px 15px;border-radius:var(--r-full);border:1.5px solid var(--line);background:var(--card);
+  font:600 13px var(--font-body);color:var(--ink-soft);cursor:pointer;transition:all .15s var(--ease)
+}
+.chip:hover{border-color:var(--navy-500);color:var(--ink)}
+.chip.on{background:var(--navy-900);border-color:var(--navy-900);color:#fff}
+
+/* ---------- Detail ---------- */
+.detail-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:34px;align-items:start}
+@media(max-width:940px){.detail-grid{grid-template-columns:1fr}}
+.detail-art{height:250px;border-radius:var(--r-lg);background:linear-gradient(135deg,var(--navy-100),var(--teal-100));display:grid;place-items:center;font-size:74px;color:var(--navy-700);margin-bottom:24px;border:1px solid var(--line)}
+:root[data-theme="dark"] .detail-art{color:#9EC5E8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .detail-art{color:#9EC5E8}}
+.spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+@media(max-width:620px){.spec-grid{grid-template-columns:repeat(2,1fr)}}
+.spec-grid .s{padding:14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.spec-grid .s .v{font-family:var(--font-mono);font-size:18px;font-weight:600}
+.spec-grid .s .k{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+.safety-list{list-style:none;padding:0;margin:0}
+.safety-list li{display:flex;gap:11px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.safety-list li:last-child{border-bottom:none}
+.safety-list .ck{color:var(--success);flex:none;font-weight:700}
+.booking-aside{position:sticky;top:calc(var(--header-h) + 20px)}
+
+/* ---------- Steps (how it works) ---------- */
+.step{display:grid;grid-template-columns:62px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .num{
+  width:52px;height:52px;border-radius:14px;background:var(--navy-900);color:var(--brass-300);
+  display:grid;place-items:center;font-family:var(--font-mono);font-size:19px;font-weight:600
+}
+.step h3{margin-bottom:6px}
+.step p{color:var(--ink-soft);margin-bottom:0;font-size:15px}
+@media(max-width:600px){.step{grid-template-columns:44px 1fr;gap:14px}.step .num{width:44px;height:44px;font-size:16px}}
+
+.timeline{display:flex;align-items:center;gap:0;margin:28px 0;flex-wrap:wrap}
+.timeline .t{flex:1;min-width:140px;padding:16px 14px;border:1px solid var(--line);background:var(--card);position:relative}
+.timeline .t:first-child{border-radius:var(--r-md) 0 0 var(--r-md)}
+.timeline .t:last-child{border-radius:0 var(--r-md) var(--r-md) 0}
+.timeline .t .h{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--brass-700)}
+.timeline .t .d{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+:root[data-theme="dark"] .timeline .t .h{color:var(--brass-300)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .timeline .t .h{color:var(--brass-300)}}
+@media(max-width:700px){.timeline{flex-direction:column}.timeline .t{width:100%;border-radius:0!important}}
+
+/* ---------- Pricing tiers ---------- */
+.tier{padding:28px 24px;display:flex;flex-direction:column;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-1);position:relative;transition:box-shadow .2s var(--ease),transform .2s var(--ease)}
+.tier:hover{box-shadow:var(--sh-2);transform:translateY(-3px)}
+.tier.featured{border:1.5px solid var(--brass-500);box-shadow:var(--sh-2)}
+.tier .flag{position:absolute;top:-11px;left:24px;background:var(--brass-500);color:#1a1204;font:600 10.5px var(--font-body);padding:4px 12px;border-radius:var(--r-full);letter-spacing:.06em;text-transform:uppercase}
+.tier .nm{font-family:var(--font-display);font-size:21px;font-weight:600;margin-bottom:4px}
+.tier .px{font-family:var(--font-mono);font-size:32px;font-weight:600;margin:10px 0 2px}
+.tier .px small{font-family:var(--font-body);font-size:13px;color:var(--ink-soft);font-weight:500}
+.tier .desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:18px;min-height:40px}
+.tier ul{list-style:none;padding:0;margin:0 0 22px;flex:1}
+.tier li{display:flex;gap:10px;padding:8px 0;font-size:14px;align-items:flex-start}
+.tier li .ck{color:var(--teal-600);flex:none;font-weight:700}
+.tier li b{font-family:var(--font-mono);font-weight:600}
+
+/* ---------- Calculator ---------- */
+.calc{background:var(--navy-900);color:#fff;border-radius:var(--r-lg);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media(max-width:860px){.calc{grid-template-columns:1fr;padding:24px}}
+.calc h3{color:#fff;font-size:23px}
+.calc .lede{color:#9FB2C6}
+.calc label{display:block;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#9FB2C6;margin:16px 0 8px}
+.calc input[type=range]{width:100%;accent-color:var(--brass-500)}
+.calc .rv{font-family:var(--font-mono);font-size:19px;font-weight:600;color:var(--brass-300)}
+.calc-out{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-md);padding:22px;font-family:var(--font-mono);font-size:13.5px}
+.calc-out .ln{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.16)}
+.calc-out .ln span:first-child{color:#9FB2C6}
+.calc-out .ln.total{border-bottom:none;border-top:1.5px solid rgba(255,255,255,.4);margin-top:6px;padding-top:13px;font-size:17px;font-weight:600}
+.calc-out .ln.total span:last-child{color:var(--brass-300)}
+
+/* ---------- Table ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card)}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th{background:var(--navy-900);color:#fff;text-align:left;padding:13px 16px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:14px}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--line) 32%,transparent)}
+td.num{font-family:var(--font-mono);font-weight:600}
+.ok{color:var(--success);font-weight:700}
+.no{color:var(--error);font-weight:700}
+
+/* ---------- Team ---------- */
+.member{padding:24px;text-align:center}
+.member .av{width:74px;height:74px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,var(--navy-700),var(--teal-600));display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-size:25px;font-weight:600}
+.member .nm{font-weight:600;font-size:15.5px}
+.member .rl{font-size:12.5px;color:var(--brass-700);font-weight:600;margin:3px 0 8px}
+:root[data-theme="dark"] .member .rl{color:var(--brass-300)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .member .rl{color:var(--brass-300)}}
+.member .bio{font-size:13px;color:var(--ink-soft);margin:0}
+
+/* ---------- Modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(8,18,32,.62);backdrop-filter:blur(3px);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex;animation:fade .2s var(--ease)}
+.modal{
+  background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh-3);width:100%;max-width:560px;
+  max-height:90vh;overflow-y:auto;animation:slideup .25s var(--ease)
+}
+@keyframes slideup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.modal-head{padding:22px 24px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.modal-body{padding:20px 24px 24px}
+.modal-foot{padding:0 24px 24px;display:flex;gap:10px}
+.steps-bar{display:flex;gap:6px;margin:18px 24px 0}
+.steps-bar .sb{flex:1;height:4px;border-radius:2px;background:var(--line);transition:background .3s var(--ease)}
+.steps-bar .sb.on{background:var(--brass-500)}
+.step-label{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin:12px 24px 0}
+.mstep{display:none}
+.mstep.on{display:block;animation:fade .2s var(--ease)}
+.radio-row{display:flex;gap:10px;align-items:center;padding:13px;border:1.5px solid var(--line);border-radius:var(--r-md);cursor:pointer;margin-bottom:9px;transition:border-color .15s var(--ease),background .15s var(--ease)}
+.radio-row:hover{border-color:var(--navy-500)}
+.radio-row.on{border-color:var(--brass-500);background:color-mix(in srgb,var(--brass-500) 7%,transparent)}
+.radio-row input{accent-color:var(--brass-500);width:17px;height:17px}
+.radio-row .t{font-weight:600;font-size:14px}
+.radio-row .s{font-size:12.5px;color:var(--ink-soft)}
+.success-mark{width:64px;height:64px;border-radius:50%;background:#E2F5EC;color:var(--success);display:grid;place-items:center;font-size:31px;margin:0 auto 18px}
+:root[data-theme="dark"] .success-mark{background:#0E2E22;color:#4FD3A0}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .success-mark{background:#0E2E22;color:#4FD3A0}}
+.conf-code{font-family:var(--font-mono);font-size:20px;font-weight:600;letter-spacing:.09em;color:var(--brass-700);text-align:center;margin-bottom:6px}
+:root[data-theme="dark"] .conf-code{color:var(--brass-300)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .conf-code{color:var(--brass-300)}}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,120%);z-index:100;
+  background:var(--navy-900);color:#fff;padding:13px 22px;border-radius:var(--r-full);
+  font-size:14px;font-weight:500;box-shadow:var(--sh-3);transition:transform .3s var(--ease);
+  display:flex;gap:9px;align-items:center;max-width:90vw;
+}
+.toast.show{transform:translate(-50%,0)}
+
+/* ---------- Footer ---------- */
+footer.site{background:var(--navy-900);color:#C9D4E0;padding:56px 0 30px;margin-top:20px}
+footer.site .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px;margin-bottom:38px}
+@media(max-width:840px){footer.site .cols{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:480px){footer.site .cols{grid-template-columns:1fr}}
+footer.site h4{color:#fff;font-family:var(--font-body);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+footer.site a{display:block;padding:5px 0;font-size:14px;color:#9FB2C6;transition:color .15s var(--ease);cursor:pointer}
+footer.site a:hover{color:#fff}
+footer.site .brandcol .logo{color:#fff;margin-bottom:12px}
+footer.site .brandcol p{font-size:13.5px;color:#9FB2C6;max-width:34ch}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#7E93A8}
+.social{display:flex;gap:9px}
+.social a{width:34px;height:34px;border-radius:var(--r-md);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;padding:0;font-size:13px}
+.social a:hover{background:rgba(255,255,255,.12)}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="wrap navbar">
+    <div class="logo" data-go="home"><span class="glyph">✈</span>1000jets</div>
+    <nav class="navlinks" id="navlinks">
+      <a data-go="home" class="active">Home</a>
+      <a data-go="search">Search flights</a>
+      <a data-go="how">How it works</a>
+      <a data-go="corporate">Corporate</a>
+      <a data-go="membership">Membership</a>
+      <a data-go="about">About</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+      <button class="btn btn-ghost btn-sm btn-signin" onclick="toast('Sign-in is stubbed in this prototype')">Sign in</button>
+      <button class="btn btn-primary btn-sm" data-go="search">Search flights</button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a data-go="home">Home</a>
+  <a data-go="search">Search flights</a>
+  <a data-go="how">How it works</a>
+  <a data-go="corporate">Corporate</a>
+  <a data-go="membership">Membership</a>
+  <a data-go="about">About</a>
+  <button class="btn btn-primary btn-block" data-go="search">Search flights</button>
+  <button class="btn btn-ghost btn-block" onclick="toast('Sign-in is stubbed in this prototype')">Sign in</button>
+</div>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<div class="view active" id="view-home">
+
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="guarantee-pill">
+          <span class="dot"></span> Book today, fly today
+          <span class="tag">4-hour guarantee</span>
+        </div>
+        <h1>Private aviation. <span class="accent">Transparent.</span> Accessible.</h1>
+        <p class="hero-sub">Real-time availability across 150+ verified operators, all-in pricing itemized before you book, and confirmation within four hours — or the platform fee is waived.</p>
+        <div class="row">
+          <button class="btn btn-accent btn-lg" data-go="search">Search flights</button>
+          <button class="btn btn-onnavy btn-lg" data-go="how">See how it works</button>
+        </div>
+        <div class="hero-proof">
+          <div class="item"><div class="n" data-count="347">0</div><div class="l">Flights booked this week</div></div>
+          <div class="item"><div class="n" data-count="92" data-suffix="%">0</div><div class="l">On-time departures</div></div>
+          <div class="item"><div class="n" data-count="150" data-suffix="+">0</div><div class="l">Verified operators</div></div>
+        </div>
+      </div>
+
+      <div class="search-panel">
+        <h3>Get a live quote</h3>
+        <p class="hint">All-in pricing. No callback required.</p>
+        <form id="heroSearch">
+          <div class="field-2">
+            <div class="field">
+              <label for="from">From</label>
+              <input id="from" list="airports" value="Los Angeles (LAX)" required>
+            </div>
+            <div class="field">
+              <label for="to">To</label>
+              <input id="to" list="airports" value="New York (TEB)" required>
+            </div>
+          </div>
+          <datalist id="airports">
+            <option>Los Angeles (LAX)</option><option>New York (TEB)</option><option>San Francisco (SFO)</option>
+            <option>Miami (OPF)</option><option>Chicago (MDW)</option><option>Aspen (ASE)</option>
+            <option>Las Vegas (LAS)</option><option>Austin (AUS)</option><option>Boston (BED)</option>
+            <option>Seattle (BFI)</option><option>Dallas (DAL)</option><option>Nantucket (ACK)</option>
+          </datalist>
+          <div class="field-2">
+            <div class="field">
+              <label for="date">Departure</label>
+              <input id="date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="pax">Passengers</label>
+              <div class="stepper">
+                <button type="button" onclick="bumpPax(-1)" aria-label="Fewer passengers">−</button>
+                <span class="val" id="paxVal">4</span>
+                <button type="button" onclick="bumpPax(1)" aria-label="More passengers">+</button>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block btn-lg" type="submit" style="margin-top:8px">Search available aircraft</button>
+          <p class="hint" style="margin:12px 0 0;text-align:center">Average quote time <b class="mono">8 seconds</b> · No account needed</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Value props -->
+  <section>
+    <div class="wrap">
+      <div class="center" style="margin-bottom:38px">
+        <p class="eyebrow">Why 1000jets</p>
+        <h2>Three promises the legacy brokers won't make</h2>
+        <p class="lede">NetJets and Flexjet quote by phone, bundle their margin, and lock you into fractional ownership. We do none of that.</p>
+      </div>
+      <div class="grid g3">
+        <div class="tile">
+          <div class="ico ico-teal">≡</div>
+          <h3>All-in pricing. No exceptions.</h3>
+          <p>Base charter, fuel surcharge, airport handling and our platform fee — itemized separately, before you book. What you see is the wire amount.</p>
+          <span class="link" data-scroll="pricing-demo">See a real breakdown <span>→</span></span>
+        </div>
+        <div class="tile">
+          <div class="ico ico-brass">◷</div>
+          <h3>Same-day. Guaranteed.</h3>
+          <p>Quote to signed confirmation in under four hours, or we waive the platform fee entirely. Backed by live operator inventory, not a call centre.</p>
+          <span class="link" data-go="how">How we guarantee it <span>→</span></span>
+        </div>
+        <div class="tile">
+          <div class="ico ico-navy">⛉</div>
+          <h3>Safety-first operations.</h3>
+          <p>Every operator is FAA Part 135 certified, IS-BAO registered and third-party audited. Maintenance status and insurance shown on every aircraft.</p>
+          <span class="link" data-go="how">Our standards <span>→</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="proof-strip">
+        <div><div class="n" data-count="3247">0</div><div class="l">Flights completed</div></div>
+        <div><div class="n" data-count="0">0</div><div class="l">Safety incidents</div></div>
+        <div><div class="n" data-count="4" data-decimal=".8">0</div><div class="l">Average rating</div></div>
+        <div><div class="n" data-count="3" data-decimal=".4" data-suffix=" hr">0</div><div class="l">Avg quote-to-booking</div></div>
+      </div>
+      <div class="certs" style="margin-top:30px">
+        <span class="cert">FAA PART 135</span>
+        <span class="cert">IS-BAO STAGE 3</span>
+        <span class="cert">WYVERN WINGMAN</span>
+        <span class="cert">ARGUS PLATINUM</span>
+        <span class="cert">$100M LIABILITY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing demo -->
+  <section class="sec-line" id="pricing-demo">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:34px">
+        <p class="eyebrow">The price ledger</p>
+        <h2>See the whole invoice before you commit</h2>
+        <p class="lede">This is the component the rest of the industry doesn't ship. Every quote on 1000jets breaks down to the dollar — and the number at the bottom is the number you pay.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="on" data-tab="p1">Empty leg · LAX → TEB</button>
+        <button data-tab="p2">Standard charter · SFO → MIA</button>
+        <button data-tab="p3">Corporate monthly · 8 legs</button>
+      </div>
+
+      <div class="grid g2" style="align-items:start;gap:34px">
+        <div>
+          <div class="tabpanel on" id="tab-p1">
+            <div class="ledger">
+              <div class="ledger-head"><span class="t">Citation Latitude · repositioning</span><span class="badge badge-amber">Empty leg</span></div>
+              <div class="ln"><span>Charter base rate</span><span>$11,900.00</span></div>
+              <div class="ln"><span>Fuel surcharge</span><span>$1,150.00</span></div>
+              <div class="ln"><span>Airport &amp; handling fees</span><span>$680.00</span></div>
+              <div class="ln"><span>1000jets platform fee (7%)</span><span>$960.00</span></div>
+              <div class="ln total"><span>Total</span><span>$14,690.00</span></div>
+              <p class="ledger-note"><span>↓</span> Standard charter on this route quotes at <b class="mono">$28,400</b> — you're seeing a 48% repositioning discount, not a discounted service.</p>
+            </div>
+          </div>
+          <div class="tabpanel" id="tab-p2">
+            <div class="ledger">
+              <div class="ledger-head"><span class="t">Challenger 350 · on-demand</span><span class="badge badge-teal">Verified operator</span></div>
+              <div class="ln"><span>Charter base rate</span><span>$29,400.00</span></div>
+              <div class="ln"><span>Fuel surcharge</span><span>$2,780.00</span></div>
+              <div class="ln"><span>Airport &amp; handling fees</span><span>$1,140.00</span></div>
+              <div class="ln"><span>Federal excise tax (7.5%)</span><span>$2,499.00</span></div>
+              <div class="ln"><span>1000jets platform fee (7%)</span><span>$2,331.00</span></div>
+              <div class="ln total"><span>Total</span><span>$38,150.00</span></div>
+              <p class="ledger-note"><span>↓</span> A fractional provider quotes this leg at roughly <b class="mono">$46,000</b> once occupied-hour minimums and repositioning are applied.</p>
+            </div>
+          </div>
+          <div class="tabpanel" id="tab-p3">
+            <div class="ledger">
+              <div class="ledger-head"><span class="t">Enterprise account · March</span><span class="badge badge-brass">Volume tier</span></div>
+              <div class="ln"><span>8 legs · charter base</span><span>$182,400.00</span></div>
+              <div class="ln"><span>Fuel surcharges</span><span>$16,240.00</span></div>
+              <div class="ln"><span>Airport &amp; handling</span><span>$7,920.00</span></div>
+              <div class="ln"><span>Platform fee (5% volume rate)</span><span>$10,328.00</span></div>
+              <div class="ln credit"><span>Empty-leg credits applied</span><span>−$12,600.00</span></div>
+              <div class="ln total"><span>Total</span><span>$204,288.00</span></div>
+              <p class="ledger-note"><span>↓</span> Exported to CSV and your accounting system on the 1st. Every line reconcilable to a tail number.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size:22px">What "hidden fees" actually cost you</h3>
+          <p class="lede" style="font-size:15.5px">Industry quotes routinely bundle repositioning, crew overnight, de-icing and broker margin into a single "charter rate." Here's what a typical bundled quote conceals on the same LAX → TEB leg.</p>
+          <div class="tbl-wrap" style="margin-top:18px">
+            <table>
+              <thead><tr><th>Line item</th><th>Legacy broker</th><th>1000jets</th></tr></thead>
+              <tbody>
+                <tr><td>Base rate visible</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+                <tr><td>Fuel surcharge itemized</td><td class="no">✕</td><td class="ok">✓</td></tr>
+                <tr><td>Handling fees itemized</td><td class="no">✕</td><td class="ok">✓</td></tr>
+                <tr><td>Broker margin disclosed</td><td class="no">✕</td><td class="ok">✓ 7%</td></tr>
+                <tr><td>Quote turnaround</td><td class="num">24–48 hr</td><td class="num ok">&lt; 4 hr</td></tr>
+                <tr><td>Membership required</td><td class="num">$150k+</td><td class="num ok">$0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:34px">
+        <p class="eyebrow">Signal, not noise</p>
+        <h2>Why they left the legacy providers</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card quote card-hover">
+          <div class="stars">★★★★★</div>
+          <blockquote>"I booked a Phenom from my phone in a taxi at 6am and was wheels-up by noon. The quote I saw was the amount that hit my card. That never once happened with our old broker."</blockquote>
+          <div class="who"><div class="av">MR</div><div><div class="nm">Maya R.</div><div class="rl">Founder &amp; CEO, Series B SaaS</div></div></div>
+        </div>
+        <div class="card quote card-hover">
+          <div class="stars">★★★★★</div>
+          <blockquote>"Our family has chartered for thirty years and I have never seen an operator's audit status, insurance limit and maintenance date on the same screen as the price. That is the entire reason we moved."</blockquote>
+          <div class="who"><div class="av">EH</div><div><div class="nm">Edward H.</div><div class="rl">Principal, family office</div></div></div>
+        </div>
+        <div class="card quote card-hover">
+          <div class="stars">★★★★★</div>
+          <blockquote>"Finance stopped fighting me on travel. Every leg reconciles to a tail number and a line-item invoice. We cut $410k off annual air spend without flying less."</blockquote>
+          <div class="who"><div class="av">DK</div><div><div class="nm">Dana K.</div><div class="rl">VP Finance, 900-person manufacturer</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audience split -->
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:34px">
+        <p class="eyebrow">Choose your path</p>
+        <h2>Ready to fly?</h2>
+      </div>
+      <div class="aud">
+        <div class="c">
+          <div class="kicker">Founders &amp; operators</div>
+          <h3>Book in three minutes</h3>
+          <p>Live inventory, instant all-in pricing, digital contract. No sales call, no membership deposit, no minimum hours.</p>
+          <button class="btn btn-primary" style="margin-top:18px" data-go="search">Search flights now</button>
+        </div>
+        <div class="c">
+          <div class="kicker">Private &amp; family offices</div>
+          <h3>Verified, audited, itemized</h3>
+          <p>Operator certifications, insurance limits and maintenance status surfaced with every quote. Concierge desk on request.</p>
+          <button class="btn btn-outline" style="margin-top:18px" data-go="how">Review our standards</button>
+        </div>
+        <div class="c">
+          <div class="kicker">Corporate travel</div>
+          <h3>Contracts and audit trails</h3>
+          <p>Volume pricing from 5%, department-level spend analytics, CSV export, and a dedicated account manager.</p>
+          <button class="btn btn-outline" style="margin-top:18px" data-go="corporate">See corporate packages</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="news">
+        <div>
+          <h3>Empty legs, in your inbox</h3>
+          <p>Repositioning flights at 30–50% below charter. We send only routes that match your saved cities — typically two or three a week.</p>
+        </div>
+        <form onsubmit="event.preventDefault();this.reset();toast('Subscribed — empty-leg alerts are on')">
+          <input type="email" placeholder="you@company.com" required aria-label="Email address">
+          <button class="btn btn-accent" type="submit">Notify me</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SEARCH RESULTS ============ -->
+<div class="view" id="view-search">
+  <div class="results-head">
+    <div class="wrap">
+      <div class="route-chip">
+        <div>
+          <div class="leg"><span id="rFrom">Los Angeles (LAX)</span> → <span id="rTo">New York (TEB)</span></div>
+          <div class="meta"><span id="rDate">—</span> · <span id="rPax">4</span> passengers · <span id="rCount">6</span> aircraft available</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin-left:auto" data-go="home">Change search</button>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding-top:32px">
+    <div class="wrap">
+      <div class="filter-bar">
+        <button class="chip on" data-filter="all">All aircraft</button>
+        <button class="chip" data-filter="empty">Empty legs only</button>
+        <button class="chip" data-filter="light">Light</button>
+        <button class="chip" data-filter="midsize">Midsize</button>
+        <button class="chip" data-filter="heavy">Heavy &amp; ultra-long</button>
+      </div>
+      <div class="grid" style="gap:14px" id="results"></div>
+      <p class="lede center" style="margin:32px auto 0;font-size:14px">Every price above is all-in. Tap any aircraft for the full ledger, operator certifications and insurance limits.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ AIRCRAFT DETAIL ============ -->
+<div class="view" id="view-detail">
+  <section style="padding-top:30px">
+    <div class="wrap">
+      <button class="btn btn-ghost btn-sm" data-go="search" style="margin-bottom:20px">← Back to results</button>
+      <div class="detail-grid">
+        <div>
+          <div class="detail-art" id="dArt">✈</div>
+          <div class="row" style="margin-bottom:8px" id="dBadges"></div>
+          <h2 id="dName">—</h2>
+          <p class="lede" id="dDesc">—</p>
+          <div class="spec-grid" id="dSpecs"></div>
+
+          <h3 style="margin-top:34px">Operator &amp; safety</h3>
+          <div class="card card-pad" style="margin-top:12px">
+            <ul class="safety-list" id="dSafety"></ul>
+          </div>
+
+          <h3 style="margin-top:34px">Cabin</h3>
+          <div class="card card-pad" style="margin-top:12px">
+            <div class="row" id="dCabin" style="gap:10px"></div>
+          </div>
+        </div>
+
+        <div class="booking-aside">
+          <div class="ledger">
+            <div class="ledger-head"><span class="t">Your all-in price</span><span class="badge badge-teal" id="dRoute">—</span></div>
+            <div id="dLedger"></div>
+            <p class="ledger-note"><span>⛨</span> Price locked for 60 minutes. No change fees within 24 hours of quote.</p>
+          </div>
+          <button class="btn btn-accent btn-block btn-lg" style="margin-top:14px" onclick="openBooking()">Confirm booking</button>
+          <button class="btn btn-outline btn-block" style="margin-top:10px" onclick="toast('Concierge desk opens in the full product')">Contact concierge</button>
+          <div class="card card-pad" style="margin-top:16px;text-align:center">
+            <div class="badge badge-brass" style="margin-bottom:8px">4-hour guarantee</div>
+            <p style="font-size:13px;color:var(--ink-soft);margin:0">Confirmation by <b class="mono" id="dEta">—</b> or the platform fee is waived automatically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HOW IT WORKS ============ -->
+<div class="view" id="view-how">
+  <section>
+    <div class="wrap-narrow">
+      <p class="eyebrow">How it works</p>
+      <h1 style="font-size:clamp(30px,4.4vw,44px)">Three steps. Four hours. Zero surprises.</h1>
+      <p class="lede">The old model runs on phone calls and bundled margin. Ours runs on live operator inventory and an itemized ledger.</p>
+
+      <div style="margin-top:36px">
+        <div class="step">
+          <div class="num">01</div>
+          <div>
+            <h3>Search &amp; quote</h3>
+            <p>Enter your route, date and passenger count. We query live availability across 150+ verified operators and return all-in pricing in about eight seconds — no callback, no account required.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <div>
+            <h3>Review &amp; customize</h3>
+            <p>Open any aircraft to see the complete cost breakdown, operator certifications, insurance limits and maintenance status. Adjust dates or passenger count and watch the ledger update line by line.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <div>
+            <h3>Book &amp; fly</h3>
+            <p>Sign the charter agreement digitally, choose your payment method, and receive confirmation with tail number, crew briefing and FBO details. Same-day departures accepted up to four hours out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap-narrow">
+      <p class="eyebrow">The guarantee</p>
+      <h2>Why four hours is achievable</h2>
+      <p class="lede">Legacy brokers quote in 24–48 hours because a human is calling operators one at a time. We hold live inventory and generate contracts programmatically.</p>
+      <div class="timeline">
+        <div class="t"><div class="h">0:00</div><div class="d">You submit a route. Live availability returns in seconds.</div></div>
+        <div class="t"><div class="h">0:10</div><div class="d">Operator confirms the tail and locks the price for 60 minutes.</div></div>
+        <div class="t"><div class="h">1:30</div><div class="d">Charter agreement generated and sent for digital signature.</div></div>
+        <div class="t"><div class="h">&lt; 4:00</div><div class="d">Confirmation issued with FBO, crew briefing and tail number.</div></div>
+      </div>
+      <div class="card card-pad" style="border-left:3px solid var(--brass-500)">
+        <p style="margin:0;font-size:15px"><b>If we miss four hours, the platform fee is waived automatically.</b> No claim form, no negotiation — the credit appears on your invoice before you see it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:34px">
+        <p class="eyebrow">Safety &amp; compliance</p>
+        <h2>What "verified operator" actually means</h2>
+        <p class="lede">Four independent checks, re-validated annually. An operator that lapses on any one is removed from inventory the same day.</p>
+      </div>
+      <div class="grid g4">
+        <div class="card card-pad card-hover">
+          <div class="ico ico-navy" style="width:42px;height:42px;font-size:18px">①</div>
+          <h3 style="font-size:17px">Operator vetting</h3>
+          <p style="font-size:14px;color:var(--ink-soft);margin:0">FAA Part 135 certificate verified at source, plus IS-BAO registration and a Wyvern or ARGUS third-party audit on file.</p>
+        </div>
+        <div class="card card-pad card-hover">
+          <div class="ico ico-navy" style="width:42px;height:42px;font-size:18px">②</div>
+          <h3 style="font-size:17px">Aircraft maintenance</h3>
+          <p style="font-size:14px;color:var(--ink-soft);margin:0">Last inspection date and maintenance programme (CAMP, ProParts) shown per tail, as reported and attested by the operator.</p>
+        </div>
+        <div class="card card-pad card-hover">
+          <div class="ico ico-navy" style="width:42px;height:42px;font-size:18px">③</div>
+          <h3 style="font-size:17px">Insurance &amp; liability</h3>
+          <p style="font-size:14px;color:var(--ink-soft);margin:0">Minimum $100M combined single limit liability per flight, certificate of insurance validated before a tail enters inventory.</p>
+        </div>
+        <div class="card card-pad card-hover">
+          <div class="ico ico-navy" style="width:42px;height:42px;font-size:18px">④</div>
+          <h3 style="font-size:17px">Crew standards</h3>
+          <p style="font-size:14px;color:var(--ink-soft);margin:0">Operators must enforce FAA-certified crews, recurrent simulator training and background screening under their Part 135 certificate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Empty legs</p>
+      <h2>Why some flights cost half</h2>
+      <p class="lede">An empty leg is a repositioning flight — the aircraft has to fly that route anyway to reach its next booked passenger. You are buying unused capacity, not a reduced service.</p>
+      <div class="grid g2" style="margin-top:24px;align-items:start">
+        <div class="card card-pad">
+          <h3>How we find them</h3>
+          <p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:0">Our scheduler watches operator fleet movements continuously and surfaces repositioning windows the moment they appear — often 24–72 hours before departure, which is exactly when legacy brokers are still returning your first call.</p>
+        </div>
+        <div class="ledger">
+          <div class="ledger-head"><span class="t">Same aircraft, two prices</span></div>
+          <div class="ln"><span>Standard charter LAX → TEB</span><span>$28,400.00</span></div>
+          <div class="ln"><span>Empty leg, same tail</span><span>$14,690.00</span></div>
+          <div class="ln total credit"><span>You save</span><span>$13,710.00</span></div>
+        </div>
+      </div>
+      <div class="center" style="margin-top:34px">
+        <button class="btn btn-accent btn-lg" data-go="search">Find an empty leg</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CORPORATE ============ -->
+<div class="view" id="view-corporate">
+  <section>
+    <div class="wrap-narrow center">
+      <p class="eyebrow">For corporate travel</p>
+      <h1 style="font-size:clamp(30px,4.4vw,44px)">Corporate aviation that doesn't hide its costs</h1>
+      <p class="lede">Volume pricing from 5%. Audit-ready invoices on every leg. Department-level spend analytics your finance team will actually accept.</p>
+      <div class="row" style="justify-content:center;margin-top:24px">
+        <button class="btn btn-primary btn-lg" data-scroll="corp-cta">Get a corporate quote</button>
+        <button class="btn btn-outline btn-lg" data-scroll="corp-calc">Calculate savings</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:40px">
+        <p class="eyebrow">Packages</p>
+        <h2>Three commitment levels</h2>
+        <p class="lede">Platform fee drops with volume. No fractional ownership, no capital deposit, no forfeited hours.</p>
+      </div>
+      <div class="grid g3" style="gap:20px">
+        <div class="tier">
+          <div class="nm">Startup</div>
+          <div class="desc">For teams flying under ten legs a year.</div>
+          <div class="px">7%<small> platform fee</small></div>
+          <div class="desc" style="min-height:auto">No monthly commitment</div>
+          <ul>
+            <li><span class="ck">✓</span><span>Up to <b>10</b> flights per year</span></li>
+            <li><span class="ck">✓</span><span>Itemized invoice per leg</span></li>
+            <li><span class="ck">✓</span><span>Monthly spend summary (CSV)</span></li>
+            <li><span class="ck">✓</span><span>Shared support desk</span></li>
+          </ul>
+          <button class="btn btn-outline btn-block" onclick="toast('Onboarding flow opens in the full product')">Get started</button>
+        </div>
+        <div class="tier featured">
+          <div class="flag">Most chosen</div>
+          <div class="nm">Enterprise</div>
+          <div class="desc">For recurring executive and deal travel.</div>
+          <div class="px">5%<small> platform fee</small></div>
+          <div class="desc" style="min-height:auto">From $12,000 / month committed</div>
+          <ul>
+            <li><span class="ck">✓</span><span>Up to <b>50</b> flights per year</span></li>
+            <li><span class="ck">✓</span><span>Real-time spend dashboard</span></li>
+            <li><span class="ck">✓</span><span>Department &amp; cost-centre tagging</span></li>
+            <li><span class="ck">✓</span><span>Dedicated account manager</span></li>
+            <li><span class="ck">✓</span><span>Priority empty-leg allocation</span></li>
+          </ul>
+          <button class="btn btn-accent btn-block" data-scroll="corp-cta">Contact sales</button>
+        </div>
+        <div class="tier">
+          <div class="nm">Unlimited</div>
+          <div class="desc">For distributed leadership teams flying weekly.</div>
+          <div class="px">3%<small> platform fee</small></div>
+          <div class="desc" style="min-height:auto">Custom, negotiated annually</div>
+          <ul>
+            <li><span class="ck">✓</span><span><b>Unlimited</b> flights</span></li>
+            <li><span class="ck">✓</span><span>Seat-utilisation &amp; ROI analytics</span></li>
+            <li><span class="ck">✓</span><span>Preferred operator pool</span></li>
+            <li><span class="ck">✓</span><span>White-glove concierge, 24/7</span></li>
+            <li><span class="ck">✓</span><span>SSO &amp; expense-system integration</span></li>
+          </ul>
+          <button class="btn btn-outline btn-block" data-scroll="corp-cta">Contact sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="grid g4">
+        <div class="card card-pad card-hover"><h3 style="font-size:17px">Every expense auditable</h3><p style="font-size:14px;color:var(--ink-soft);margin:0">Line-item ledger per leg, reconcilable to a tail number and a date. Finance stops guessing what "charter services" meant.</p></div>
+        <div class="card card-pad card-hover"><h3 style="font-size:17px">No surprise fees</h3><p style="font-size:14px;color:var(--ink-soft);margin:0">Quoted costs are contractually locked. Repositioning, crew overnight and handling are disclosed up front, never back-billed.</p></div>
+        <div class="card card-pad card-hover"><h3 style="font-size:17px">Usage analytics</h3><p style="font-size:14px;color:var(--ink-soft);margin:0">Spend by department, route, and traveller. Seat utilisation reporting shows where you are flying half-empty.</p></div>
+        <div class="card card-pad card-hover"><h3 style="font-size:17px">Preferred operators</h3><p style="font-size:14px;color:var(--ink-soft);margin:0">Lock a vetted pool of operators to your account so every leg flies on a tail your risk team has already cleared.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="sec-line" id="corp-calc">
+    <div class="wrap">
+      <div class="calc">
+        <div>
+          <p class="eyebrow" style="color:var(--brass-300)">ROI calculator</p>
+          <h3>What are you overpaying today?</h3>
+          <p class="lede" style="font-size:15px">Most corporate accounts arrive from a fractional programme or a retained broker carrying 12–18% in undisclosed margin. Move the sliders.</p>
+          <label for="cFlights">Flights per year · <span class="rv" id="cFlightsV">24</span></label>
+          <input id="cFlights" type="range" min="4" max="120" value="24">
+          <label for="cSpend">Average cost per flight · <span class="rv" id="cSpendV">$32,000</span></label>
+          <input id="cSpend" type="range" min="8000" max="90000" step="1000" value="32000">
+          <label for="cMargin">Assumed broker margin today · <span class="rv" id="cMarginV">14%</span></label>
+          <input id="cMargin" type="range" min="7" max="22" value="14">
+        </div>
+        <div>
+          <div class="calc-out">
+            <div class="ln"><span>Current annual air spend</span><span id="oCurrent">$768,000</span></div>
+            <div class="ln"><span>Undisclosed margin today</span><span id="oMargin">$107,520</span></div>
+            <div class="ln"><span>1000jets platform fee</span><span id="oFee">$38,400</span></div>
+            <div class="ln"><span>Empty-leg substitution (est. 15%)</span><span id="oEmpty">−$46,080</span></div>
+            <div class="ln total"><span>Estimated annual saving</span><span id="oSave">$115,200</span></div>
+          </div>
+          <p style="font-size:12px;color:#9FB2C6;margin-top:14px">Illustrative only. Tier rate applied automatically by flight volume; empty-leg substitution assumes 15% of legs are flexible by ±24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap-narrow">
+      <p class="eyebrow">Case study</p>
+      <h2>900-person manufacturer, 31 legs a year</h2>
+      <div class="grid g2" style="margin-top:22px;align-items:start">
+        <div class="card card-pad">
+          <h3 style="font-size:16px">The problem</h3>
+          <p style="font-size:14.5px;color:var(--ink-soft)">Executives were losing two working days per trip to connections through hubs, and finance could not attribute a $1.4M "charter services" line to specific trips or business units.</p>
+          <h3 style="font-size:16px;margin-top:18px">The change</h3>
+          <p style="font-size:14.5px;color:var(--ink-soft);margin-bottom:0">Moved to an Enterprise contract at a 5% platform fee, with cost-centre tagging enabled and 15% of legs flagged flexible for empty-leg substitution.</p>
+        </div>
+        <div class="ledger">
+          <div class="ledger-head"><span class="t">Year-over-year</span><span class="badge badge-success">Verified</span></div>
+          <div class="ln"><span>Prior programme spend</span><span>$1,412,000</span></div>
+          <div class="ln"><span>1000jets spend, same 31 legs</span><span>$1,002,000</span></div>
+          <div class="ln"><span>Travel days recovered</span><span>38 days</span></div>
+          <div class="ln total credit"><span>Net annual saving</span><span>$410,000</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line" id="corp-cta">
+    <div class="wrap-narrow">
+      <div class="card card-pad" style="padding:34px">
+        <h2 style="font-size:26px">Schedule a corporate flight audit</h2>
+        <p class="lede" style="font-size:15px">Send us twelve months of charter invoices. We return a line-by-line comparison showing exactly what the same itinerary costs on 1000jets — usually within three business days.</p>
+        <form onsubmit="event.preventDefault();this.reset();toast('Request received — our team replies within one business day')">
+          <div class="field-2">
+            <div class="field"><label for="coName">Full name</label><input id="coName" placeholder="Dana Kowalski" required></div>
+            <div class="field"><label for="coCo">Company</label><input id="coCo" placeholder="Acme Industrial" required></div>
+          </div>
+          <div class="field-2">
+            <div class="field"><label for="coEmail">Work email</label><input id="coEmail" type="email" placeholder="dana@acme.com" required></div>
+            <div class="field"><label for="coVol">Estimated flights / year</label>
+              <select id="coVol"><option>Under 10</option><option selected>10–50</option><option>50–100</option><option>100+</option></select>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit" style="margin-top:8px">Request the audit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ MEMBERSHIP ============ -->
+<div class="view" id="view-membership">
+  <section>
+    <div class="wrap-narrow center">
+      <p class="eyebrow">Membership</p>
+      <h1 style="font-size:clamp(30px,4.4vw,44px)">Fly more, save more</h1>
+      <p class="lede">Optional tiers that lower your rate and move you up the queue for empty legs. No capital deposit, no minimum hours, cancel any month.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid g3" style="gap:20px">
+        <div class="tier">
+          <div class="nm">Bronze</div>
+          <div class="desc">Everything you need to book, at list price.</div>
+          <div class="px">$0<small> / month</small></div>
+          <ul>
+            <li><span class="ck">✓</span><span>All-in transparent pricing</span></li>
+            <li><span class="ck">✓</span><span>Empty legs <b>90 days</b> out</span></li>
+            <li><span class="ck">✓</span><span>Mobile booking &amp; digital contracts</span></li>
+            <li><span class="ck">✓</span><span>Monthly spend summary</span></li>
+          </ul>
+          <button class="btn btn-outline btn-block" onclick="toast('Account creation opens in the full product')">Join free</button>
+        </div>
+        <div class="tier featured">
+          <div class="flag">Best value</div>
+          <div class="nm">Silver</div>
+          <div class="desc">For four or more flights a year.</div>
+          <div class="px">$99<small> / month</small></div>
+          <ul>
+            <li><span class="ck">✓</span><span><b>5%</b> off every charter</span></li>
+            <li><span class="ck">✓</span><span>Empty legs <b>7 days</b> out</span></li>
+            <li><span class="ck">✓</span><span>Partner FBO lounge access</span></li>
+            <li><span class="ck">✓</span><span><b>1,000</b> bonus points annually</span></li>
+            <li><span class="ck">✓</span><span>Priority support queue</span></li>
+          </ul>
+          <button class="btn btn-accent btn-block" onclick="toast('Upgrade flow opens in the full product')">Upgrade to Silver</button>
+        </div>
+        <div class="tier">
+          <div class="nm">Gold</div>
+          <div class="desc">For monthly flyers who want first refusal.</div>
+          <div class="px">$299<small> / month</small></div>
+          <ul>
+            <li><span class="ck">✓</span><span><b>12%</b> off every charter</span></li>
+            <li><span class="ck">✓</span><span>Empty legs <b>24 hours</b> out — first look</span></li>
+            <li><span class="ck">✓</span><span>Direct concierge line</span></li>
+            <li><span class="ck">✓</span><span><b>3,000</b> bonus points annually</span></li>
+            <li><span class="ck">✓</span><span>Quarterly status bonus flight credit</span></li>
+          </ul>
+          <button class="btn btn-outline btn-block" onclick="toast('Upgrade flow opens in the full product')">Upgrade to Gold</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="grid g2" style="align-items:center;gap:40px">
+        <div>
+          <p class="eyebrow">Break-even</p>
+          <h2>Silver pays for itself on flight two</h2>
+          <p class="lede">A 5% discount on a single $32,000 charter returns $1,600 — more than a full year of Silver. Gold breaks even at roughly $30,000 of annual spend.</p>
+        </div>
+        <div class="ledger">
+          <div class="ledger-head"><span class="t">Silver · two flights a year</span></div>
+          <div class="ln"><span>Annual membership</span><span>$1,188.00</span></div>
+          <div class="ln"><span>Discount on flight 1 ($32,000)</span><span>−$1,600.00</span></div>
+          <div class="ln"><span>Discount on flight 2 ($28,400)</span><span>−$1,420.00</span></div>
+          <div class="ln total credit"><span>Net benefit</span><span>$1,832.00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:30px">
+        <p class="eyebrow">Points</p>
+        <h2>Earn on every dollar, redeem on any flight</h2>
+      </div>
+      <div class="grid g3">
+        <div class="card card-pad center"><div class="px mono" style="font-size:30px;font-weight:600">1 pt</div><p style="color:var(--ink-soft);font-size:14px;margin:6px 0 0">per $1 of charter spend, credited on departure</p></div>
+        <div class="card card-pad center"><div class="px mono" style="font-size:30px;font-weight:600">$100</div><p style="color:var(--ink-soft);font-size:14px;margin:6px 0 0">off any future leg per 1,000 points redeemed</p></div>
+        <div class="card card-pad center"><div class="px mono" style="font-size:30px;font-weight:600">+1,500</div><p style="color:var(--ink-soft);font-size:14px;margin:6px 0 0">bonus points when you reach Gold status</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="view" id="view-about">
+  <section>
+    <div class="wrap-narrow center">
+      <p class="eyebrow">About 1000jets</p>
+      <h1 style="font-size:clamp(30px,4.4vw,44px)">Flying private. Without the black box.</h1>
+      <p class="lede">Thirty-seven years of combined aviation operating experience, 150+ verified operators, and a standing refusal to bundle a single fee.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="proof-strip">
+        <div><div class="n">3,247</div><div class="l">Flights completed</div></div>
+        <div><div class="n">0</div><div class="l">Safety incidents</div></div>
+        <div><div class="n">150+</div><div class="l">Verified operators</div></div>
+        <div><div class="n">$100M</div><div class="l">Min. liability per flight</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="center" style="margin-bottom:34px">
+        <p class="eyebrow">The team</p>
+        <h2>Operators, not intermediaries</h2>
+      </div>
+      <div class="grid g4">
+        <div class="card member card-hover"><div class="av">AV</div><div class="nm">Alex Vance</div><div class="rl">Founder &amp; CEO</div><p class="bio">Built and sold a logistics marketplace. Moved into aviation after a $90k quote arrived with one line on it.</p></div>
+        <div class="card member card-hover"><div class="av">RM</div><div class="nm">Rosa Marín</div><div class="rl">Chief Operating Officer</div><p class="bio">Twenty-two years in Part 135 charter operations, previously director of ops for a 40-tail fleet.</p></div>
+        <div class="card member card-hover"><div class="av">TB</div><div class="nm">Thomas Boyd</div><div class="rl">Director of Safety</div><p class="bio">Former airline captain, 14,000 hours. Runs operator auditing and the annual re-validation programme.</p></div>
+        <div class="card member card-hover"><div class="av">NP</div><div class="nm">Nadia Petrov</div><div class="rl">Head of Compliance</div><p class="bio">Aviation attorney, fifteen years advising charter operators on FAA and DOT regulatory matters.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap">
+      <div class="grid g2" style="gap:40px;align-items:start">
+        <div>
+          <p class="eyebrow">Sustainability</p>
+          <h2>We price carbon the same way we price everything</h2>
+          <p class="lede">Openly, as a line item. Every booking offsets 100% of estimated flight emissions through verified carbon projects, included in the quoted fee — not sold as an upsell at checkout.</p>
+          <ul class="safety-list" style="margin-top:16px">
+            <li><span class="ck">✓</span><span>100% of estimated emissions offset on every flight, at no additional charge</span></li>
+            <li><span class="ck">✓</span><span>Sustainable Aviation Fuel available on 40+ tails, shown as a filter in search</span></li>
+            <li><span class="ck">✓</span><span><b class="mono">18,400</b> metric tons of CO₂e offset to date</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">Press</p>
+          <h2>What's been written</h2>
+          <div class="certs" style="justify-content:flex-start;margin:18px 0 22px">
+            <span class="cert">TECHCRUNCH</span><span class="cert">FORBES</span><span class="cert">AVIATION WEEK</span><span class="cert">WSJ</span>
+          </div>
+          <div class="card quote">
+            <div class="stars">★★★★★</div>
+            <blockquote>"The first charter platform to publish its own margin on the quote screen. That single decision does more for the customer than a decade of loyalty programmes."</blockquote>
+            <div class="who"><div class="av">AW</div><div><div class="nm">Aviation Week</div><div class="rl">Business aviation review</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-line">
+    <div class="wrap-narrow center">
+      <h2>Ready to see a real quote?</h2>
+      <p class="lede">No account, no deposit, no sales call.</p>
+      <button class="btn btn-accent btn-lg" style="margin-top:14px" data-go="search">Search flights</button>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div class="brandcol">
+        <div class="logo"><span class="glyph">✈</span>1000jets</div>
+        <p>Private aviation. Transparent. Accessible. Book today, fly today — guaranteed confirmation within four hours.</p>
+        <div class="social" style="margin-top:16px">
+          <a onclick="toast('Social links are stubbed')" aria-label="LinkedIn">in</a>
+          <a onclick="toast('Social links are stubbed')" aria-label="Twitter">𝕏</a>
+          <a onclick="toast('Social links are stubbed')" aria-label="Instagram">◎</a>
+          <a onclick="toast('Social links are stubbed')" aria-label="Email">✉</a>
+        </div>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a data-go="search">Search flights</a>
+        <a data-go="how">How it works</a>
+        <a data-go="membership">Membership</a>
+        <a data-go="corporate">Corporate</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a data-go="about">About us</a>
+        <a data-go="about">Safety record</a>
+        <a data-go="about">Sustainability</a>
+        <a onclick="toast('Careers page is stubbed')">Careers</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a onclick="toast('Support centre is stubbed')">Contact</a>
+        <a onclick="toast('Support centre is stubbed')">FAQ</a>
+        <a onclick="toast('Support centre is stubbed')">Flight tracking</a>
+        <a onclick="toast('Support centre is stubbed')">Concierge desk</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 1000jets, Inc. All rights reserved.</span>
+      <span style="display:flex;gap:18px;flex-wrap:wrap">
+        <a onclick="toast('Legal pages are stubbed')">Privacy</a>
+        <a onclick="toast('Legal pages are stubbed')">Terms</a>
+        <a onclick="toast('Legal pages are stubbed')">Safety &amp; compliance</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div class="overlay" id="bookOverlay" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
+  <div class="modal">
+    <div class="steps-bar">
+      <div class="sb on" data-sb="1"></div><div class="sb" data-sb="2"></div><div class="sb" data-sb="3"></div>
+    </div>
+    <div class="step-label" id="stepLabel">Step 1 of 3 · Review</div>
+    <div class="modal-head">
+      <h3 id="bookTitle" style="margin:0">Review your booking</h3>
+      <button class="icon-btn" onclick="closeBooking()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Step 1 -->
+      <div class="mstep on" data-step="1">
+        <div class="ledger" style="box-shadow:none;margin-bottom:6px">
+          <div class="ledger-head"><span class="t" id="bkAircraft">—</span><span class="badge badge-teal" id="bkRoute">—</span></div>
+          <div id="bkLedger"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft);margin:14px 0 0">Price is locked for 60 minutes from quote. Free changes until 24 hours before departure.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="mstep" data-step="2">
+        <div class="field-2">
+          <div class="field"><label for="bkName">Lead passenger</label><input id="bkName" placeholder="Maya Ross" required></div>
+          <div class="field"><label for="bkPhone">Mobile</label><input id="bkPhone" placeholder="+1 415 555 0142" required></div>
+        </div>
+        <div class="field"><label for="bkEmail">Email for confirmation</label><input id="bkEmail" type="email" placeholder="maya@company.com" required></div>
+        <label style="display:block;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 8px">Payment method</label>
+        <label class="radio-row on"><input type="radio" name="pay" checked><span><span class="t">Card on file</span><br><span class="s">Visa ending 4471 · instant confirmation</span></span></label>
+        <label class="radio-row"><input type="radio" name="pay"><span><span class="t">Wire transfer</span><br><span class="s">Confirmed on receipt · typically same day</span></span></label>
+        <label class="radio-row"><input type="radio" name="pay"><span><span class="t">Corporate account</span><br><span class="s">Net 30 invoice · Enterprise contracts only</span></span></label>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="mstep" data-step="3">
+        <div class="success-mark">✓</div>
+        <p class="conf-code" id="bkCode">1KJ-000000</p>
+        <p style="text-align:center;color:var(--ink-soft);font-size:14px">Your charter is confirmed. Tail number, crew briefing and FBO details have been emailed.</p>
+        <div class="ledger" style="box-shadow:none;margin-top:18px">
+          <div class="ledger-head"><span class="t">Confirmed itinerary</span><span class="badge badge-success">Confirmed</span></div>
+          <div class="ln"><span>Aircraft</span><span id="cfAircraft">—</span></div>
+          <div class="ln"><span>Route</span><span id="cfRoute">—</span></div>
+          <div class="ln"><span>Departure</span><span id="cfDate">—</span></div>
+          <div class="ln"><span>Passengers</span><span id="cfPax">—</span></div>
+          <div class="ln total"><span>Charged</span><span id="cfTotal">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="bkBack" onclick="stepBack()">Back</button>
+      <button class="btn btn-accent" id="bkNext" style="flex:1" onclick="stepNext()">Continue to payment</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>✓</span><span id="toastMsg"></span></div>
+
+<script>
+/* ============================================================
+   Fleet data (mock)
+   ============================================================ */
+const FLEET = [
+  { id:'phenom300', name:'Phenom 300E', cls:'light', clsLabel:'Light jet', seats:8, range:2010, speed:464,
+    base:16800, fuel:1480, handling:620, empty:false, operator:'Meridian Air Charter',
+    desc:'The most-delivered light jet in the world. Best-in-class range for its category, a flat floor and a genuinely usable baggage compartment — the right aircraft for two to six people on a three-hour leg.',
+    cabin:['Wi-Fi','Refreshment centre','Enclosed lavatory','74 cu ft baggage'] },
+
+  { id:'cj3', name:'Citation CJ3+', cls:'light', clsLabel:'Light jet', seats:7, range:2040, speed:416,
+    base:14900, fuel:1320, handling:580, empty:true, wasBase:24600, operator:'Ventura Jet Partners',
+    desc:'Efficient, short-field capable and economical to operate, which is why it dominates regional business routes. Repositioning today, which is where the saving comes from.',
+    cabin:['Wi-Fi','Refreshment centre','Enclosed lavatory','65 cu ft baggage'] },
+
+  { id:'latitude', name:'Citation Latitude', cls:'midsize', clsLabel:'Midsize jet', seats:8, range:2850, speed:446,
+    base:11900, fuel:1150, handling:680, empty:true, wasBase:24900, operator:'Coastline Aviation Group',
+    desc:'A six-foot flat-floor cabin in a midsize airframe — the reason it has become the default transcontinental charter. This tail is repositioning east tonight.',
+    cabin:['Gogo AVANCE Wi-Fi','Full galley','Enclosed lavatory','Flat floor cabin'] },
+
+  { id:'challenger350', name:'Challenger 350', cls:'midsize', clsLabel:'Super-midsize jet', seats:9, range:3200, speed:470,
+    base:29400, fuel:2780, handling:1140, empty:false, operator:'Northstar Executive Air',
+    desc:'Coast to coast without a fuel stop, in the widest cabin in its class. Stand-up height, a true conference grouping and the quietest cabin sound level of any super-midsize.',
+    cabin:['Ka-band Wi-Fi','Full galley','Conference grouping','Stand-up cabin'] },
+
+  { id:'g450', name:'Gulfstream G450', cls:'heavy', clsLabel:'Heavy jet', seats:13, range:4350, speed:476,
+    base:41200, fuel:4100, handling:1560, empty:false, operator:'Atlantic Wing Aviation',
+    desc:'Three living areas, a crew rest and transatlantic range. The aircraft boards choose when the whole leadership team travels together and the meeting starts on landing.',
+    cabin:['Satellite Wi-Fi','Full galley + crew','Two lavatories','Divan / sleeping'] },
+
+  { id:'g650er', name:'Gulfstream G650ER', cls:'heavy', clsLabel:'Ultra-long range', seats:14, range:7500, speed:516,
+    base:68500, fuel:7200, handling:2240, empty:false, operator:'Atlantic Wing Aviation',
+    desc:'The longest-range purpose-built business jet flying. Non-stop from the US west coast to almost anywhere in Europe or Asia, at Mach 0.90 when the schedule demands it.',
+    cabin:['High-speed Ka-band','Full galley + crew','Two lavatories','Four living areas'] }
+];
+
+const FEE_RATE = 0.07;
+const state = { pax:4, from:'Los Angeles (LAX)', to:'New York (TEB)', date:'', filter:'all', current:null, step:1 };
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+const money = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const money0 = n => '$' + Math.round(n).toLocaleString('en-US');
+
+function priceOf(jet){
+  const base = jet.base, fuel = jet.fuel, handling = jet.handling;
+  const sub = base + fuel + handling;
+  const fee = Math.round(sub * FEE_RATE);
+  return { base, fuel, handling, fee, total: sub + fee };
+}
+
+let toastTimer;
+function toast(msg){
+  $('#toastMsg').textContent = msg;
+  $('#toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>$('#toast').classList.remove('show'), 2600);
+}
+
+/* ============================================================
+   Theme
+   ============================================================ */
+(function initTheme(){
+  let saved = null;
+  try { saved = localStorage.getItem('1kj-theme'); } catch(e){}
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  $('#themeBtn').addEventListener('click', ()=>{
+    const cur = document.documentElement.getAttribute('data-theme');
+    const isDark = cur ? cur === 'dark'
+                       : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('1kj-theme', next); } catch(e){}
+  });
+})();
+
+/* ============================================================
+   Routing
+   ============================================================ */
+function go(view){
+  $$('.view').forEach(v=>v.classList.remove('active'));
+  const el = $('#view-' + view);
+  if(el) el.classList.add('active');
+  $$('#navlinks a').forEach(a=>a.classList.toggle('active', a.dataset.go === view));
+  $('#drawer').classList.remove('open');
+  $('#burger').setAttribute('aria-expanded','false');
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+}
+document.addEventListener('click', e=>{
+  const goEl = e.target.closest('[data-go]');
+  if(goEl){ go(goEl.dataset.go); return; }
+  const scEl = e.target.closest('[data-scroll]');
+  if(scEl){
+    const t = $('#' + scEl.dataset.scroll);
+    if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+$('#burger').addEventListener('click', ()=>{
+  const d = $('#drawer'); const open = d.classList.toggle('open');
+  $('#burger').setAttribute('aria-expanded', String(open));
+  $('#burger').textContent = open ? '✕' : '☰';
+});
+
+/* ============================================================
+   Hero search
+   ============================================================ */
+(function initDate(){
+  const d = new Date(); d.setDate(d.getDate() + 1);
+  const iso = d.toISOString().slice(0,10);
+  $('#date').value = iso; $('#date').min = new Date().toISOString().slice(0,10);
+  state.date = iso;
+})();
+
+function bumpPax(n){
+  state.pax = Math.min(16, Math.max(1, state.pax + n));
+  $('#paxVal').textContent = state.pax;
+}
+
+$('#heroSearch').addEventListener('submit', e=>{
+  e.preventDefault();
+  state.from = $('#from').value.trim();
+  state.to   = $('#to').value.trim();
+  state.date = $('#date').value;
+  renderResults();
+  go('search');
+});
+
+/* ============================================================
+   Results
+   ============================================================ */
+function fmtDate(iso){
+  if(!iso) return '—';
+  const d = new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en-US',{weekday:'short', month:'short', day:'numeric', year:'numeric'});
+}
+
+function renderResults(){
+  $('#rFrom').textContent = state.from;
+  $('#rTo').textContent   = state.to;
+  $('#rDate').textContent = fmtDate(state.date);
+  $('#rPax').textContent  = state.pax;
+
+  const list = FLEET.filter(j=>{
+    if(j.seats < state.pax) return false;
+    if(state.filter === 'all') return true;
+    if(state.filter === 'empty') return j.empty;
+    return j.cls === state.filter;
+  });
+
+  $('#rCount').textContent = list.length;
+  const box = $('#results');
+
+  if(!list.length){
+    box.innerHTML = '<div class="card card-pad center"><h3>No aircraft match those filters</h3>'
+      + '<p style="color:var(--ink-soft);margin:0">Try widening the class filter or reducing passenger count.</p></div>';
+    return;
+  }
+
+  box.innerHTML = list.map(j=>{
+    const p = priceOf(j);
+    const was = j.empty && j.wasBase
+      ? `<span class="was">${money0(Math.round((j.wasBase + j.fuel + j.handling) * (1 + FEE_RATE)))}</span>` : '';
+    return `
+    <article class="jet-row" data-jet="${j.id}" tabindex="0" role="button" aria-label="View ${j.name}">
+      <div class="jet-art">✈</div>
+      <div class="jet-info">
+        <div class="row" style="gap:7px;margin-bottom:7px">
+          ${j.empty ? '<span class="badge badge-amber">Empty leg</span>' : ''}
+          <span class="badge badge-teal">Verified operator</span>
+          ${j.range > 4000 ? '<span class="badge badge-brass">Non-stop capable</span>' : ''}
+        </div>
+        <h3>${j.name}</h3>
+        <div class="cls">${j.clsLabel} · ${j.operator}</div>
+        <div class="specs">
+          <span>Seats <b>${j.seats}</b></span>
+          <span>Range <b>${j.range.toLocaleString()}</b> nmi</span>
+          <span>Cruise <b>${j.speed}</b> kt</span>
+        </div>
+      </div>
+      <div class="jet-price">
+        <div class="p">${was}${money0(p.total)}</div>
+        <div class="sub">All-in · nothing added later</div>
+        <button class="btn btn-primary btn-sm">View breakdown</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+$('#results').addEventListener('click', e=>{
+  const row = e.target.closest('[data-jet]');
+  if(row) openDetail(row.dataset.jet);
+});
+$('#results').addEventListener('keydown', e=>{
+  if(e.key !== 'Enter' && e.key !== ' ') return;
+  const row = e.target.closest('[data-jet]');
+  if(row){ e.preventDefault(); openDetail(row.dataset.jet); }
+});
+
+$$('.filter-bar .chip').forEach(c=>{
+  c.addEventListener('click', ()=>{
+    $$('.filter-bar .chip').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on');
+    state.filter = c.dataset.filter;
+    renderResults();
+  });
+});
+
+/* ============================================================
+   Detail
+   ============================================================ */
+function ledgerRows(j){
+  const p = priceOf(j);
+  return `
+    <div class="ln"><span>Charter base rate</span><span>${money(p.base)}</span></div>
+    <div class="ln"><span>Fuel surcharge</span><span>${money(p.fuel)}</span></div>
+    <div class="ln"><span>Airport &amp; handling fees</span><span>${money(p.handling)}</span></div>
+    <div class="ln"><span>1000jets platform fee (7%)</span><span>${money(p.fee)}</span></div>
+    <div class="ln total"><span>Total</span><span>${money(p.total)}</span></div>`;
+}
+
+function openDetail(id){
+  const j = FLEET.find(x=>x.id === id);
+  if(!j) return;
+  state.current = j;
+
+  $('#dName').textContent = j.name;
+  $('#dDesc').textContent = j.desc;
+  $('#dRoute').textContent = state.from.match(/\(([^)]+)\)/)?.[1] + ' → ' + state.to.match(/\(([^)]+)\)/)?.[1];
+
+  $('#dBadges').innerHTML =
+    (j.empty ? '<span class="badge badge-amber">Empty leg · repositioning</span>' : '')
+    + '<span class="badge badge-teal">Verified operator</span>'
+    + '<span class="badge badge-brass">4-hour guarantee</span>';
+
+  $('#dSpecs').innerHTML = [
+    ['Seats', j.seats], ['Range', j.range.toLocaleString() + ' nmi'],
+    ['Cruise', j.speed + ' kt'], ['Class', j.clsLabel.replace(' jet','')]
+  ].map(([k,v])=>`<div class="s"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('');
+
+  $('#dSafety').innerHTML = [
+    `Operated by <b>${j.operator}</b> — FAA Part 135 certificate verified at source`,
+    'IS-BAO Stage 3 registered · audited by Wyvern within the last 12 months',
+    'Last scheduled inspection completed 14 days ago, maintenance programme current',
+    'Insurance: $100M combined single limit liability, certificate on file',
+    'Crews FAA-certified with recurrent simulator training under operator programme'
+  ].map(t=>`<li><span class="ck">✓</span><span>${t}</span></li>`).join('');
+
+  $('#dCabin').innerHTML = j.cabin.map(c=>`<span class="badge badge-navy">${c}</span>`).join('');
+  $('#dLedger').innerHTML = ledgerRows(j);
+
+  const eta = new Date(Date.now() + 4*3600*1000);
+  $('#dEta').textContent = eta.toLocaleTimeString('en-US',{hour:'numeric', minute:'2-digit'});
+
+  go('detail');
+}
+
+/* ============================================================
+   Booking modal
+   ============================================================ */
+function setStep(n){
+  state.step = n;
+  $$('.mstep').forEach(s=>s.classList.toggle('on', +s.dataset.step === n));
+  $$('.steps-bar .sb').forEach(s=>s.classList.toggle('on', +s.dataset.sb <= n));
+  const labels = {1:'Step 1 of 3 · Review', 2:'Step 2 of 3 · Passenger &amp; payment', 3:'Confirmed'};
+  $('#stepLabel').innerHTML = labels[n];
+  $('#bookTitle').textContent = n===1 ? 'Review your booking' : n===2 ? 'Passenger & payment' : 'You are booked';
+  $('#bkBack').classList.toggle('hide', n !== 2);
+  $('#bkNext').textContent = n===1 ? 'Continue to payment' : n===2 ? 'Sign & confirm' : 'Done';
+}
+
+function openBooking(){
+  const j = state.current; if(!j) return;
+  const p = priceOf(j);
+  $('#bkAircraft').textContent = j.name;
+  $('#bkRoute').textContent = $('#dRoute').textContent;
+  $('#bkLedger').innerHTML = ledgerRows(j);
+  $('#cfAircraft').textContent = j.name;
+  $('#cfRoute').textContent = $('#dRoute').textContent;
+  $('#cfDate').textContent = fmtDate(state.date);
+  $('#cfPax').textContent = state.pax + ' passengers';
+  $('#cfTotal').textContent = money(p.total);
+  $('#bkCode').textContent = '1KJ-' + Math.floor(100000 + Math.random()*900000);
+  setStep(1);
+  $('#bookOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking(){
+  $('#bookOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function stepNext(){
+  if(state.step === 3){ closeBooking(); toast('Confirmation emailed — see you at the FBO'); return; }
+  if(state.step === 2){
+    const name = $('#bkName').value.trim(), email = $('#bkEmail').value.trim();
+    if(!name || !email){ toast('Add a lead passenger and email to continue'); return; }
+  }
+  setStep(state.step + 1);
+}
+function stepBack(){ if(state.step > 1) setStep(state.step - 1); }
+
+$('#bookOverlay').addEventListener('click', e=>{ if(e.target.id === 'bookOverlay') closeBooking(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeBooking(); });
+$$('.radio-row').forEach(r=>r.addEventListener('click', ()=>{
+  $$('.radio-row').forEach(x=>x.classList.remove('on')); r.classList.add('on');
+}));
+
+/* ============================================================
+   Pricing tabs
+   ============================================================ */
+$$('.tabs button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    $$('.tabs button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    $$('.tabpanel').forEach(p=>p.classList.remove('on'));
+    $('#tab-' + b.dataset.tab).classList.add('on');
+  });
+});
+
+/* ============================================================
+   Corporate ROI calculator
+   ============================================================ */
+function calcROI(){
+  const flights = +$('#cFlights').value;
+  const spend   = +$('#cSpend').value;
+  const margin  = +$('#cMargin').value / 100;
+
+  const current = flights * spend;
+  const hidden  = current * margin;
+  const trueCost = current - hidden;                        // cost without broker margin
+  const rate = flights >= 100 ? 0.03 : flights >= 24 ? 0.05 : 0.07;
+  const fee = trueCost * rate;
+  const emptySaving = trueCost * 0.15 * 0.40;               // 15% of legs, 40% cheaper
+  const save = hidden - fee + emptySaving;
+
+  $('#cFlightsV').textContent = flights;
+  $('#cSpendV').textContent   = money0(spend);
+  $('#cMarginV').textContent  = Math.round(margin*100) + '%';
+  $('#oCurrent').textContent  = money0(current);
+  $('#oMargin').textContent   = money0(hidden);
+  $('#oFee').textContent      = money0(fee) + '  (' + Math.round(rate*100) + '%)';
+  $('#oEmpty').textContent    = '−' + money0(emptySaving);
+  $('#oSave').textContent     = money0(save);
+}
+['cFlights','cSpend','cMargin'].forEach(id=>$('#'+id).addEventListener('input', calcROI));
+calcROI();
+
+/* ============================================================
+   Count-up stats
+   ============================================================ */
+const counters = $$('[data-count]');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting || entry.target.dataset.done) return;
+    entry.target.dataset.done = '1';
+    const target = +entry.target.dataset.count;
+    const dec = entry.target.dataset.decimal || '';
+    const suffix = entry.target.dataset.suffix || '';
+    const dur = 1100, t0 = performance.now();
+    (function tick(now){
+      const k = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - k, 3);
+      entry.target.textContent = Math.round(target * eased).toLocaleString() + dec + suffix;
+      if(k < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+},{threshold:.4});
+counters.forEach(c=>io.observe(c));
+
+/* ============================================================
+   Boot
+   ============================================================ */
+renderResults();
+</script>
+</body>
+</html>
